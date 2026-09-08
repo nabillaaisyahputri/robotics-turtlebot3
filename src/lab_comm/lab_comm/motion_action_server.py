@@ -1,7 +1,7 @@
 import time
 import rclpy
 from rclpy.node import Node
-from rclpy.action import ActionServer
+from rclpy.action import ActionServer, GoalResponse, CancelResponse  
 from example_interfaces.action import Fibonacci
 
 class FibonacciActionServer(Node):
@@ -12,8 +12,19 @@ class FibonacciActionServer(Node):
             self,
             Fibonacci,
             'execute_motion',
-            self.execute_callback
+            execute_callback=self.execute_callback,
+            goal_callback=self.on_goal,       
+            cancel_callback=self.on_cancel    
         )
+
+    def on_goal(self, goal_request):
+        if goal_request.order > 25:
+            self.get_logger().warn('goal rejected: order too large')
+            return GoalResponse.REJECT
+        return GoalResponse.ACCEPT
+
+    def on_cancel(self, goal_handle):
+        return CancelResponse.ACCEPT
 
     def execute_callback(self, goal_handle):
         self.get_logger().info('Executing goal...')
@@ -21,6 +32,10 @@ class FibonacciActionServer(Node):
         feedback_msg.sequence = [0, 1]
 
         for i in range(1, goal_handle.request.order):
+            if goal_handle.is_cancel_requested:
+                goal_handle.canceled()
+                return Fibonacci.Result()
+            
             feedback_msg.sequence.append(feedback_msg.sequence[i] + feedback_msg.sequence[i-1])
             self.get_logger().info(f'Feedback: {feedback_msg.sequence}')
             goal_handle.publish_feedback(feedback_msg)
@@ -41,8 +56,7 @@ def main(args=None):
         pass
     finally:
         node.destroy_node()
-        if rclpy.ok():
-            rclpy.shutdown()
+        rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
