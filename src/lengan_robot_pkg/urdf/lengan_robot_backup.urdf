@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+
+<robot name="lengan_robot">
+
+  <!-- ================= MATERIAL ================= -->
+
+  <material name="blue">
+    <color rgba="0.10 0.35 0.80 1.0"/>
+  </material>
+
+  <material name="dark_gray">
+    <color rgba="0.20 0.22 0.25 1.0"/>
+  </material>
+
+  <material name="light_gray">
+    <color rgba="0.65 0.68 0.72 1.0"/>
+  </material>
+
+  <material name="orange">
+    <color rgba="0.90 0.45 0.05 1.0"/>
+  </material>
+
+
+  <!-- ================= BASE ================= -->
+
+  <link name="base_link">
+
+    <visual>
+      <geometry>
+        <cylinder radius="0.35" length="0.20"/>
+      </geometry>
+
+      <material name="dark_gray"/>
+    </visual>
+
+  </link>
+
+
+  <!-- ================= LINK BAWAH ================= -->
+
+  <link name="link_bawah">
+
+    <visual>
+
+      <origin xyz="0 0 0.40"/>
+
+      <geometry>
+        <box size="0.25 0.25 0.80"/>
+      </geometry>
+
+      <material name="blue"/>
+
+    </visual>
+
+  </link>
+
+
+  <!-- ================= LINK ATAS ================= -->
+
+  <link name="link_atas">
+
+    <visual>
+
+      <origin xyz="0 0 0.30"/>
+
+      <geometry>
+        <box size="0.22 0.22 0.60"/>
+      </geometry>
+
+      <material name="light_gray"/>
+
+    </visual>
+
+  </link>
+
+
+  <!-- ================= WRIST ================= -->
+
+  <link name="wrist_link">
+
+    <visual>
+
+      <origin xyz="0 0 0.12"/>
+
+      <geometry>
+        <box size="0.18 0.18 0.24"/>
+      </geometry>
+
+      <material name="blue"/>
+
+    </visual>
+
+  </link>
+
+
+  <!-- ================= GRIPPER PALM ================= -->
+
+  <link name="gripper_link">
+
+    <visual>
+
+      <origin xyz="0 0 0.08"/>
+
+      <geometry>
+        <box size="0.30 0.22 0.16"/>
+      </geometry>
+
+      <material name="dark_gray"/>
+
+    </visual>
+
+  </link>
+
+<!-- ================= JARI KIRI ================= -->
+
+<link name="finger_left">
+
+  <visual>
+
+    <origin
+      xyz="0 0 0.15"
+      rpy="-0.65 0 0"/>
+
+    <geometry>
+      <box size="0.10 0.12 0.30"/>
+    </geometry>
+
+    <material name="orange"/>
+
+  </visual>
+
+</link>
+
+
+<!-- ================= JARI KANAN ================= -->
+
+<link name="finger_right">
+
+  <visual>
+
+    <origin
+      xyz="0 0 0.15"
+      rpy="0.65 0 0"/>
+
+    <geometry>
+      <box size="0.10 0.12 0.30"/>
+    </geometry>
+
+    <material name="orange"/>
+
+  </visual>
+
+</link>
+
+
+  <!-- ================= JOINT 1 ================= -->
+
+  <joint name="joint_1_base"
+         type="revolute">
+
+    <parent link="base_link"/>
+    <child link="link_bawah"/>
+
+    <origin xyz="0 0 0.10"/>
+
+    <axis xyz="0 0 1"/>
+
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="10"
+      velocity="1.0"/>
+
+  </joint>
+
+
+  <!-- ================= JOINT 2 ================= -->
+
+  <joint name="joint_2_elbow"
+         type="revolute">
+
+    <parent link="link_bawah"/>
+    <child link="link_atas"/>
+
+    <origin xyz="0 0 0.80"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-1.2"
+      upper="1.2"
+      effort="10"
+      velocity="1.0"/>
+
+  </joint>
+
+
+  <!-- ================= JOINT 3 ================= -->
+
+  <joint name="joint_3_wrist"
+         type="revolute">
+
+    <parent link="link_atas"/>
+    <child link="wrist_link"/>
+
+    <origin xyz="0 0 0.60"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-1.2"
+      upper="1.2"
+      effort="10"
+      velocity="1.0"/>
+
+  </joint>
+
+
+  <!-- ================= WRIST KE GRIPPER ================= -->
+
+  <joint name="wrist_to_gripper"
+         type="fixed">
+
+    <parent link="wrist_link"/>
+    <child link="gripper_link"/>
+
+    <origin xyz="0 0 0.24"/>
+
+  </joint>
+
+
+  <!-- ================= CAPIT KIRI ================= -->
+
+  <joint name="gripper_left_joint"
+         type="prismatic">
+
+    <parent link="gripper_link"/>
+    <child link="finger_left"/>
+
+    <origin xyz="0 0.13 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="0"
+      upper="0.20"
+      effort="10"
+      velocity="0.2"/>
+
+  </joint>
+
+
+  <!-- ================= CAPIT KANAN ================= -->
+
+  <joint name="gripper_right_joint"
+         type="prismatic">
+
+    <parent link="gripper_link"/>
+    <child link="finger_right"/>
+
+    <origin xyz="0 -0.13 0"/>
+
+    <axis xyz="0 -1 0"/>
+
+    <limit
+      lower="0"
+      upper="0.20"
+      effort="10"
+      velocity="0.2"/>
+
+  </joint>
+
+</robot>

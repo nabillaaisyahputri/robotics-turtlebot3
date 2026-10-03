@@ -1,0 +1,453 @@
+<?xml version="1.0"?>
+
+<robot name="lengan_robot">
+
+  <!-- ================================================= -->
+  <!-- MATERIAL -->
+  <!-- ================================================= -->
+
+  <material name="blue">
+    <color rgba="0.05 0.25 0.65 1.0"/>
+  </material>
+
+  <material name="blue_light">
+    <color rgba="0.12 0.40 0.85 1.0"/>
+  </material>
+
+  <material name="dark_gray">
+    <color rgba="0.16 0.18 0.21 1.0"/>
+  </material>
+
+  <material name="gray">
+    <color rgba="0.55 0.58 0.62 1.0"/>
+  </material>
+
+  <material name="orange">
+    <color rgba="0.95 0.45 0.05 1.0"/>
+  </material>
+
+
+  <!-- ================================================= -->
+  <!-- BASE -->
+  <!-- ================================================= -->
+
+  <link name="base_link">
+
+    <!-- kaki base -->
+    <visual>
+      <origin xyz="0 0 0.05"/>
+
+      <geometry>
+        <cylinder radius="0.38" length="0.10"/>
+      </geometry>
+
+      <material name="dark_gray"/>
+    </visual>
+
+    <!-- bagian atas base -->
+    <visual>
+      <origin xyz="0 0 0.14"/>
+
+      <geometry>
+        <cylinder radius="0.30" length="0.10"/>
+      </geometry>
+
+      <material name="blue"/>
+    </visual>
+
+  </link>
+
+
+  <!-- ================================================= -->
+  <!-- LINK BAWAH -->
+  <!-- ================================================= -->
+
+  <link name="link_bawah">
+
+    <!-- badan lengan -->
+    <visual>
+
+      <origin xyz="0 0 0.38"/>
+
+      <geometry>
+        <cylinder radius="0.13" length="0.76"/>
+      </geometry>
+
+      <material name="blue"/>
+    </visual>
+
+    <!-- pelindung luar -->
+    <visual>
+
+      <origin xyz="0 0 0.38"
+              rpy="0 0 0"/>
+
+      <geometry>
+        <cylinder radius="0.17" length="0.55"/>
+      </geometry>
+
+      <material name="blue_light"/>
+    </visual>
+
+    <!-- poros bawah -->
+    <visual>
+
+      <origin xyz="0 0 0.02"/>
+
+      <geometry>
+        <cylinder radius="0.18" length="0.08"/>
+      </geometry>
+
+      <material name="dark_gray"/>
+    </visual>
+
+    <!-- poros atas -->
+    <visual>
+
+      <origin xyz="0 0 0.78"/>
+
+      <geometry>
+        <cylinder radius="0.18" length="0.08"/>
+      </geometry>
+
+      <material name="dark_gray"/>
+    </visual>
+
+  </link>
+
+
+  <!-- ================================================= -->
+  <!-- LINK ATAS -->
+  <!-- ================================================= -->
+
+  <link name="link_atas">
+
+    <!-- lengan utama -->
+    <visual>
+
+      <origin xyz="0 0 0.30"/>
+
+      <geometry>
+        <cylinder radius="0.11" length="0.60"/>
+      </geometry>
+
+      <material name="gray"/>
+    </visual>
+
+    <!-- bagian tengah -->
+    <visual>
+
+      <origin xyz="0 0 0.30"/>
+
+      <geometry>
+        <cylinder radius="0.14" length="0.40"/>
+      </geometry>
+
+      <material name="blue"/>
+    </visual>
+
+    <!-- cakram siku -->
+    <visual>
+
+      <origin xyz="0 0 0.02"/>
+
+      <geometry>
+        <cylinder radius="0.17" length="0.08"/>
+      </geometry>
+
+      <material name="dark_gray"/>
+    </visual>
+
+    <!-- cakram ujung -->
+    <visual>
+
+      <origin xyz="0 0 0.59"/>
+
+      <geometry>
+        <cylinder radius="0.15" length="0.08"/>
+      </geometry>
+
+      <material name="dark_gray"/>
+    </visual>
+
+  </link>
+
+
+  <!-- ================================================= -->
+  <!-- WRIST -->
+  <!-- ================================================= -->
+
+  <link name="wrist_link">
+
+    <!-- leher -->
+    <visual>
+
+      <origin xyz="0 0 0.08"/>
+
+      <geometry>
+        <cylinder radius="0.09" length="0.16"/>
+      </geometry>
+
+      <material name="dark_gray"/>
+    </visual>
+
+    <!-- rumah wrist -->
+    <visual>
+
+      <origin xyz="0 0 0.18"/>
+
+      <geometry>
+        <cylinder radius="0.13" length="0.18"/>
+      </geometry>
+
+      <material name="blue"/>
+    </visual>
+
+    <!-- poros -->
+    <visual>
+
+      <origin xyz="0 0 0.28"/>
+
+      <geometry>
+        <cylinder radius="0.08" length="0.10"/>
+      </geometry>
+
+      <material name="gray"/>
+    </visual>
+
+  </link>
+
+
+  <!-- ================================================= -->
+  <!-- TELAPAK GRIPPER -->
+  <!-- ================================================= -->
+
+  <link name="gripper_link">
+
+    <!-- telapak utama -->
+    <visual>
+
+      <origin xyz="0 0 0.08"/>
+
+      <geometry>
+        <box size="0.26 0.24 0.16"/>
+      </geometry>
+
+      <material name="dark_gray"/>
+    </visual>
+
+    <!-- bagian depan -->
+    <visual>
+
+      <origin xyz="0 0 0.17"/>
+
+      <geometry>
+        <cylinder radius="0.12" length="0.10"/>
+      </geometry>
+
+      <material name="gray"/>
+    </visual>
+
+  </link>
+
+
+  <!-- ================================================= -->
+  <!-- JARI CAPIT KIRI -->
+  <!-- ================================================= -->
+
+  <link name="finger_left">
+
+    <!-- pangkal jari -->
+    <visual>
+
+      <origin xyz="0 0 0.10"/>
+
+      <geometry>
+        <box size="0.09 0.12 0.20"/>
+      </geometry>
+
+      <material name="orange"/>
+    </visual>
+
+    <!-- ujung jari dibuat miring -->
+    <visual>
+
+      <origin
+        xyz="0 0 0.25"
+        rpy="-0.55 0 0"/>
+
+      <geometry>
+        <box size="0.09 0.11 0.18"/>
+      </geometry>
+
+      <material name="orange"/>
+    </visual>
+
+  </link>
+
+
+  <!-- ================================================= -->
+  <!-- JARI CAPIT KANAN -->
+  <!-- ================================================= -->
+
+  <link name="finger_right">
+
+    <!-- pangkal jari -->
+    <visual>
+
+      <origin xyz="0 0 0.10"/>
+
+      <geometry>
+        <box size="0.09 0.12 0.20"/>
+      </geometry>
+
+      <material name="orange"/>
+    </visual>
+
+    <!-- ujung jari dibuat miring berlawanan -->
+    <visual>
+
+      <origin
+        xyz="0 0 0.25"
+        rpy="0.55 0 0"/>
+
+      <geometry>
+        <box size="0.09 0.11 0.18"/>
+      </geometry>
+
+      <material name="orange"/>
+    </visual>
+
+  </link>
+
+
+  <!-- ================================================= -->
+  <!-- JOINT 1 - BASE -->
+  <!-- ================================================= -->
+
+  <joint name="joint_1_base"
+         type="revolute">
+
+    <parent link="base_link"/>
+    <child link="link_bawah"/>
+
+    <origin xyz="0 0 0.18"/>
+
+    <axis xyz="0 0 1"/>
+
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="10"
+      velocity="1.0"/>
+
+  </joint>
+
+
+  <!-- ================================================= -->
+  <!-- JOINT 2 - ELBOW -->
+  <!-- ================================================= -->
+
+  <joint name="joint_2_elbow"
+         type="revolute">
+
+    <parent link="link_bawah"/>
+    <child link="link_atas"/>
+
+    <origin xyz="0 0 0.80"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-1.2"
+      upper="1.2"
+      effort="10"
+      velocity="1.0"/>
+
+  </joint>
+
+
+  <!-- ================================================= -->
+  <!-- JOINT 3 - WRIST -->
+  <!-- ================================================= -->
+
+  <joint name="joint_3_wrist"
+         type="revolute">
+
+    <parent link="link_atas"/>
+    <child link="wrist_link"/>
+
+    <origin xyz="0 0 0.60"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-1.2"
+      upper="1.2"
+      effort="10"
+      velocity="1.0"/>
+
+  </joint>
+
+
+  <!-- ================================================= -->
+  <!-- WRIST KE GRIPPER -->
+  <!-- ================================================= -->
+
+  <joint name="wrist_to_gripper"
+         type="fixed">
+
+    <parent link="wrist_link"/>
+    <child link="gripper_link"/>
+
+    <origin xyz="0 0 0.32"/>
+
+  </joint>
+
+
+  <!-- ================================================= -->
+  <!-- CAPIT KIRI -->
+  <!-- ================================================= -->
+
+  <joint name="gripper_left_joint"
+         type="prismatic">
+
+    <parent link="gripper_link"/>
+    <child link="finger_left"/>
+
+    <origin xyz="0 0.13 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="0"
+      upper="0.20"
+      effort="10"
+      velocity="0.2"/>
+
+  </joint>
+
+
+  <!-- ================================================= -->
+  <!-- CAPIT KANAN -->
+  <!-- ================================================= -->
+
+  <joint name="gripper_right_joint"
+         type="prismatic">
+
+    <parent link="gripper_link"/>
+    <child link="finger_right"/>
+
+    <origin xyz="0 -0.13 0"/>
+
+    <axis xyz="0 -1 0"/>
+
+    <limit
+      lower="0"
+      upper="0.20"
+      effort="10"
+      velocity="0.2"/>
+
+  </joint>
+
+</robot>
