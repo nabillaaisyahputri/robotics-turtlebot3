@@ -448,6 +448,8 @@
       effort="10"
       velocity="0.2"/>
 
+   <mimic joint="gripper_left_joint" multiplier="1.0" offset="0.0"/>
+
   </joint>
 
 </robot>

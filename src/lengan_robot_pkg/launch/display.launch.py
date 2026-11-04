@@ -2,7 +2,6 @@ import os
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
-from launch.substitutions import Command
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
@@ -10,9 +9,12 @@ def generate_launch_description():
     urdf_path = os.path.join(pkg_share, 'urdf', 'lengan_robot.urdf')
     rviz_path = os.path.join(pkg_share, 'lengan_robot.rviz')
 
-    robot_description = ParameterValue(Command(['xacro ', urdf_path]), value_type=str)
+    # Membaca file URDF langsung sebagai string
+    with open(urdf_path, 'r') as infp:
+        robot_description_content = infp.read()
 
-    # Menggunakan GUI Slider Interaktif
+    robot_description = ParameterValue(robot_description_content, value_type=str)
+
     joint_state_publisher_gui_node = Node(
         package='joint_state_publisher_gui',
         executable='joint_state_publisher_gui',

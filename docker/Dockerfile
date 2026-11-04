@@ -1,3 +1,4 @@
+
 FROM ros:humble-ros-base-jammy
 
 ARG USERNAME=dev
@@ -14,6 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-rqt-graph \
     ros-humble-demo-nodes-cpp \
     ros-humble-demo-nodes-py \
+    ros-humble-turtlebot3-gazebo \
+    ros-humble-turtlebot3-simulations \
+    ros-humble-gazebo-ros-pkgs \
     git \
     nano \
     iputils-ping \
